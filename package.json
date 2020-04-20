@@ -1,0 +1,29 @@
+{
+  "name": "tsBasic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "tsc",
+    "devwatch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sophysophysophysophy/tsBasic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sophysophysophysophy/tsBasic/issues"
+  },
+  "homepage": "https://github.com/sophysophysophysophy/tsBasic#readme",
+  "dependencies": {
+    "moment": "^2.24.0",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "tslint": "^6.1.1"
+  }
+}
