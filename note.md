@@ -1,4 +1,5 @@
 https://ko.javascript.info/ 
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference
 
 타입스크립트 코리아 : 기초 세미나
 
@@ -7,7 +8,9 @@ https://www.youtube.com/playlist?reload=9&list=PLV6pYUAZ-ZoE8uRXG51003heNA0EATIx
 
 http://slides.com/woongjae/deck-8
 http://slides.com/woongjae/deck-8-14
-http://slides.com/woongjae/deck-8-15
+http://slides.com/woongjae/typescript-basic-3#/1
+
+2woongjae/tic-tec-toe
 
 https://joshua1988.github.io/ts/
 
@@ -29,7 +32,7 @@ object 형태 자체가 자유로움 : javascript
 
 정적 타입 언어 vs 동적 타입 언어 
 
-Traditional Compiled Language 
+Traditional Compiled Language
 - 컴파일 언어
 - C, C++, JAVA, C#, Go
 - 소스 코드 -> 기계어 변환 과정 : 컴파일
@@ -377,3 +380,140 @@ interface StringDictionaryNo {
     [index: string]: string;
     // name: number; // (X) 인덱서블 타입이 string 값을 가지기 때문에 number 를 필수로 끌어오면 에러. name 또한 index로 사용될 것이기 때문에 인덱서블 타입과 다르면 안된다 (?)
 }
+
+--------------------------------------------------------------
+class 
+private / protected 등 가능 
+getter / setter : 헷갈려서 많이 사용하지 않음
+    차라리 함수로 만들어서 사용함
+
+private constructor 
+싱글톤 패턴 
+readonly : get/ set 중 get만 있는 것
+----------------------------------------------------------------
+
+generic
+    : 타입을 변수로 주고 싶을 때 사용.(C++의 템플릿 라이브러리처럼)
+    (any 대신 사용됨 any는 hepler나 도우미가 제대로 동작하지 않기때문에 generic 많이 사용)
+    
+    hello<T>(message: T): T {
+
+    }
+
+const a: string[] = [] //array쓰는 법
+const b: Array<string> = [] // array쓰는 법2. 내부적으로 generic 이용
+
+타입은 generic으로 주고 인자는 array형태로 넣겠다
+
+
+hello 함수의 제네릭 타입을 [] 를 이용하여 배열로 사용할 수 있음
+
+function hello<T>(messages: T[]): T {
+    return messages[0];
+}
+
+console.log(hello<string>(['Hello', 'World']));
+
+----------------------------------------------------------------
+
+Generic Types
+
+type . keyof
+
+const : 리터럴 타입 
+ex) const a = 'name' === a는 name이라는 리터럴 타입
+
+type lookup system : key의 타입을 미리 지정해놓을 수 있음
+
+------------------------------------------------------
+iterator 
+
+const array = ['first', 'second'];
+const obj = {
+    name: 'Mark',
+    age: 35
+};
+
+// 배열에 for..of 이용
+for (const item of array) {
+    console.log(typeof item + ', ' + item);
+}
+
+// 배열에 for..in 이용
+// item 이 string 타입의 숫자
+for (const item in array) {
+    console.log(typeof item + ', ' + item);
+}
+
+
+// 객체에 for..of 이용 => 오류
+/*
+for (const item of obj) {
+    console.log(typeof item + ', ' + item);
+}
+*/
+
+// 객체에 for..in 이용
+for (const item in obj) {
+    console.log(typeof item + ', ' + item);
+}
+
+// 객체의 keys 들에 for..of 이용
+for (const item of Object.keys(obj)) {
+    console.log(typeof item + ', ' + item);
+}
+
+iterator : 이터러블이 가능한 아이. 
+
+Custom Iterable
+
+
+// iterator 
+class CustomIterable implements Iterable<string> {
+    [Symbol.iterator]() {
+        const iterator: Iterator<string> = {
+            next() {
+                return {
+                    done: false,
+                    value: '어렵다'
+                }
+            }
+        }
+        return iterator
+    }
+}
+
+const c = new CustomIterable()
+
+for (const item of c) {
+    console.log(item)   
+}
+
+-----------------------------------------------------------------
+function hello(constructorFn: Function) {
+    console.log(constructorFn);
+}
+
+function helloFactory(show: boolean) {
+    if (show) {
+        return hello;
+    } else {
+        return null;
+    }
+}
+
+// @hello
+@helloFactory(true)
+class Person {
+    constructor() {
+        console.log('new Person()');
+    }
+}
+
+new Person();
+
+/*
+
+helloFactory 는 팩토리 스타일
+
+*/

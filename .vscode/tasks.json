@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"command": "${workspaceRoot}/node_modules/.bin/tsc",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "devwatch",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: devwatch",
+			"detail": "tsc -w"
+		}
+	]
+}
